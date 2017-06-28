@@ -26,8 +26,6 @@ var LinkedList = function() {
     if (node !== null) {
       out = node.value;
       list.head = node.next;
-      list[node.value] = undefined;
-    
     }
     //go to list.head
     //get its value
