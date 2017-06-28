@@ -15,14 +15,15 @@ var Queue = function() {
 var queueMethods = {};
 
 queueMethods.enqueue = function(value) {
-  this.storage[end] = value;
+  this.storage[this.end] = value;
   this.length++;
+  this.end++;
 };
 
 queueMethods.dequeue = function() {
   if (this.length > 0) {
-    var out = this.storage[start];
-    this.storage[start] = undefined;
+    var out = this.storage[this.start];
+    this.storage[this.start] = undefined;
     this.start++;
     this.length--;
     return out;
