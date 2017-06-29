@@ -44,7 +44,12 @@ bstMethods.contains = function(value, out) {
 
 bstMethods.depthFirstLog = function(callback) {
   //executed callback function on each element in BST
-
+  //operate on this value
+  //if has left, operate on left
+  //if has right, operate on right
+  callback(this.value);
+  if (this.left) { this.left.depthFirstLog(callback); }
+  if (this.right) { this.right.depthFirstLog(callback); }
 };
 /*
  * Complexity: What is the time complexity of the above functions?
