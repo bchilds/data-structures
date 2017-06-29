@@ -29,10 +29,16 @@ bstMethods.insert = function(value) {
 
 };
 
-bstMethods.contains = function(value) {
+bstMethods.contains = function(value, out) {
   //returns boolean if BST contains value
-  var out;
-
+  var out = out || false;
+  if (this.value === value) { 
+    out = true; 
+  } else if ( value < this.value && !out && this.left) { 
+    out = this.left.contains(value, out); 
+  } else if ( value > this.value && !out && this.right) { 
+    out = this.right.contains(value, out) || false; 
+  }
   return out;
 };
 
