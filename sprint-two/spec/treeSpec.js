@@ -41,4 +41,11 @@ describe('tree', function() {
     expect(tree.contains(8)).to.equal(true);
   });
 
+  //added test
+  it('should work with non-number values', function() {
+    tree.addChild('cow');
+    tree.children[0].addChild(true);
+    expect(tree.contains('cow')).to.equal(true);
+    expect(tree.contains(true)).to.equal(true);
+  });
 });
