@@ -48,4 +48,26 @@ describe('tree', function() {
     expect(tree.contains('cow')).to.equal(true);
     expect(tree.contains(true)).to.equal(true);
   });
+
+  it('should be able to return correct parent nodes', function() {
+    tree.addChild(7);
+    tree.addChild(6);
+    tree.children[0].addChild(12);
+    //structure: undefined -> [7 -> 12, 6]
+    expect(tree.children[0].children[0].parent.value).to.equal(7);
+    expect(tree.children[0].parent.value).to.equal(undefined);
+    expect(tree.parent).to.equal(null);
+  });
+
+  it('should be able to correctly remove node from parent', function() {
+    tree.addChild(7);
+    tree.addChild(6);
+    tree.children[0].addChild(12);
+    //structure: undefined -> [7 -> 12, 6]
+    var removedChild = tree.children[0].children[0];
+    removedChild.removeFromParent();
+
+    expect(removedChild.parent).to.equal(null);
+    expect(tree.children[0].children.indexOf(removedChild)).to.equal(-1);
+  });
 });

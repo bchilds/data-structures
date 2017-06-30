@@ -1,9 +1,10 @@
-var Tree = function(value) {
+var Tree = function(value, parent) {
   var newTree = {};
   newTree.value = value;
 
   // your code here
   newTree.children = []; //this array will contain all the child Trees
+  newTree.parent = parent || null;
   _.extend(newTree, treeMethods);
 
   return newTree;
@@ -14,7 +15,7 @@ var treeMethods = {};
 treeMethods.addChild = function(value) {
   //create a childTree(value)
   //add this new child as a child of the current tree
-  var childTree = new Tree(value);
+  var childTree = new Tree(value, this);
   this.children.push(childTree);
   
 };
@@ -35,6 +36,22 @@ treeMethods.contains = function(target, out) {
   }
   
   return out;
+};
+
+treeMethods.removeFromParent = function() {
+  //the problem description does not say anything about deleting
+  //a child node altogether. It only specifies to remove parents.
+
+  //operates on current node
+    //get parent node
+    //set parent to null
+    //remove reference from children array in parent node
+
+  var parentNode = this.parent;
+  if (parentNode !== null) {
+    this.parent = null;
+    parentNode.children.splice(parentNode.children.indexOf(this), 1);
+  }
 };
 
 
