@@ -2,12 +2,12 @@
 
 var HashTable = function() {
   this._limit = 8; //this is the base value
+  this._baseLimit = this._limit;
   this._storage = LimitedArray(this._limit);
 };
 
 HashTable.prototype.insert = function(k, v) {
   //refactor: always store tuples using insert
-  this.checkUsage();
   var tuple = [k, v];
   var index = getIndexBelowMaxForKey(k, this._limit);
   if (this._storage.get(index) === undefined) {
@@ -23,7 +23,7 @@ HashTable.prototype.insert = function(k, v) {
     }
     if ( !found ) { this._storage.get(index).push(tuple); }
   }
-
+  this.checkUsage();
 };
 
 HashTable.prototype.retrieve = function(k) {
@@ -56,9 +56,11 @@ HashTable.prototype.remove = function(k) {
   
   //set the bucket to undefined again
   if (this._storage.get(index).length === 0) { this._storage.set(index, undefined); }
+  this.checkUsage();
+
 };
 
-HashTable.prototype.rehashAll = function(oldStorage, newStorage) {
+HashTable.prototype.rehashAll = function(oldStorage, newStorage, limit) {
   //should take the current hash table and re-hash it
   //with the current limit
 
@@ -69,9 +71,12 @@ HashTable.prototype.rehashAll = function(oldStorage, newStorage) {
   //old storage will contain tuples which need to be rehashed
   
   oldStorage.each(function(bucketArray) {
-    for (var i = 0; i < bucketArray ? bucketArray.length : 0; i++ ) {
-      //debugger;
-      //newStorage.insert(bucketArray[i][0], bucketArray[i][1]);
+    //i < bucketArray ? bucketArray.length : 0; i++ ) {
+    for (var i = 0; bucketArray && i < bucketArray.length; i++) {
+      //figure out proper scoping for below
+      var newIndex = getIndexBelowMaxForKey(bucketArray[i][0], limit);
+      if (newStorage.get(newIndex) === undefined) { newStorage.set(newIndex, []); }
+      newStorage.get(newIndex).push(bucketArray[i]);
     }
   });
 };
@@ -89,14 +94,14 @@ HashTable.prototype.checkUsage = function() {
   needsRehash = false;
 
   this._storage.each(function(index) {
-    if (index) { indicesUsed++; }
+    if (index) { indicesUsed += index.length; }
   });
 
   ratio = indicesUsed / this._limit;
-  if (ratio >= 0.75) {
+  if (ratio > 0.75) {
     this._limit = this._limit * 2;
     needsRehash = true;
-  } else if (ratio <= 0.25 && this._limit > 1) {
+  } else if (ratio < 0.25 && this._limit > 1) {
     this._limit = this._limit / 2;
     needsRehash = true;
   }
@@ -104,10 +109,11 @@ HashTable.prototype.checkUsage = function() {
   if (needsRehash) { 
     oldStorage = this._storage;
     newStorage = LimitedArray(this._limit);
-    this.rehashAll(oldStorage, this);
+    this.rehashAll(oldStorage, newStorage, this._limit);
     this._storage = newStorage;
   }
   
+  return ratio;
 };
 
 
