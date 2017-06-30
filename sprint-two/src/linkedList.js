@@ -10,9 +10,18 @@ var LinkedList = function() {
     
     var newNode = new Node(value);
 
-    if (list.tail === null) {
-      list.head = newNode;
-      list.tail = newNode;
+    if (list.tail === null || list.tail === undefined) {
+      if (list.head === null || list.head === undefined) {
+        list.head = newNode;
+        list.tail = newNode;
+      } else {
+        var next = list.head;
+        while (next.next !== null) {
+          next = next.next;
+        } 
+        next.next = newNode;
+        list.tail = newNode;
+      }
     } else {
       var node = list.tail;
       node.next = newNode;
@@ -69,6 +78,6 @@ var Node = function(value) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
-  - addToTail, removeHead are both constant time (instant access to the node in question)
-  - contains is linear time (must go through every node until the match is found)
+  - addToTail, removeHead are both O(1)
+  - contains is O(n)
  */

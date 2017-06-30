@@ -52,4 +52,12 @@ describe('linkedList', function() {
   });
 
   // add more tests here to test the functionality of linkedList
+  //this test is intended to deal tail being misassigned somehow, like a node being deleted through other means
+  it('should always have tail point to a node if head points to a node', function() {
+    linkedList.addToTail(5);
+    linkedList.tail = undefined;
+    linkedList.addToTail(6);
+
+    expect(linkedList.head.value === 5 && linkedList.tail.value === 6);
+  });
 });

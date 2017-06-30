@@ -47,6 +47,13 @@ describe('hashTable', function() {
     window.getIndexBelowMaxForKey = oldHashFunction;
   });
 
+  //add test
+  it('should always create a bucket out of a regular Array', function () {
+    hashTable.insert('Steven', 'Tyler');
+    var hashInd = window.getIndexBelowMaxForKey('Steven', 8);
+    expect( Array.isArray( hashTable._storage.get(hashInd) ) ).to.equal(true);
+  });
+
   // (Advanced! Remove the extra "x" when you want the following tests to run)
   xit ('should double in size when needed', function() {
     _.each(people, function(person) {
@@ -73,4 +80,5 @@ describe('hashTable', function() {
     hashTable.remove('Mr.');
     expect(hashTable._limit).to.equal(8);
   });
+
 });

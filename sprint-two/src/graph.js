@@ -1,5 +1,6 @@
 
 
+
 // Instantiate a new graph
 var Graph = function() {
   this.nodes = {};
@@ -70,8 +71,9 @@ Graph.prototype.forEachNode = function(cb) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
-  - addNote, contains, hasEdge, addEdge, removeEdge should all be constant time
-  - forEachNode, removeNode should be linear time
+  - addNode, contains, addEdge are O(1)
+  - removeEdge, forEachNode, hasEdge are O(n)
+  - removeNode is O(n^2)
  */
 
 

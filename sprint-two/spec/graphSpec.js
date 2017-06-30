@@ -68,4 +68,16 @@ describe('graph', function() {
     expect(graph.hasEdge(3, 5)).to.equal(true);
     expect(graph.hasEdge(5, 5)).to.equal(true);
   });
+
+  //new test
+  it('should allow values other than integers', function () {
+    graph.addNode('hello');
+    expect(graph.contains('hello')).to.equal(true);
+  });
+  it('should allow edges with non-integer nodes', function() {
+    graph.addNode('hello');
+    graph.addNode(6);
+    graph.addEdge(6, 'hello');
+    expect(graph.hasEdge(6, 'hello')).to.equal(true);
+  });
 });
