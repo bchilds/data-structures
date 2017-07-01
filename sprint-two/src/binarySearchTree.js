@@ -35,7 +35,8 @@ bstMethods.insert = function(value) {
     while (treeMainRoot.treeRoot) {
       treeMainRoot = treeMainRoot.treeRoot;
     }
-    //treeMainRoot.rotateTree();
+    debugger;
+    treeMainRoot.rotateTree();
   }
   
 };
@@ -120,7 +121,9 @@ bstMethods.rotateTree = function() {
       if negative, rotate left
     
   */
-  
+
+
+  //need to account for children not existing  
   var rotateDir = this.left.getMaxHeight() - this.right.getMaxHeight();
   var oldRoot, newRoot, oddChild;
   if (rotateDir > 0) { 
