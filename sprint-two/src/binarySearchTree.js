@@ -59,14 +59,46 @@ bstMethods.depthFirstLog = function(callback) {
 };
 
 bstMethods.breadthFirstLog = function(callback) {
+
+  var queue = [];
+  var moreChildren = true;
+  var currentChildren = [];
   //per research: must be implemented iteratively
   //process starting node
+  currentChildren.push(this);
   //while there are children
+  while (moreChildren) {
+    if (currentChildren.length > 0) { 
+      var newChildren = [];
+      currentChildren.forEach(function(child) {
+        queue.push(child);
+        if (child.left) { newChildren.push(child.left); }
+        if (child.right) { newChildren.push(child.right); }
+      });
+      currentChildren = newChildren.slice();
+    } else {
+      moreChildren = false;
+    }
+
+  }
     //process starting children
     //check for children's children
     //repeat
     
+
+  //we now have queue of all nodes
+  //perform callback on all nodes
+  //arrayOut for testing
+  var arrayOut = [];
+  queue.forEach(function(element) {
+    element.value = callback(element.value);
+    arrayOut.push(element.value);
+  });
+
+  return arrayOut;
 };
+
+
 /*
  * Complexity: What is the time complexity of the above functions?
     - insert, contains are O(log n)

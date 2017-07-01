@@ -58,10 +58,9 @@ describe('binarySearchTree', function() {
   });
 
   it('should perform a callback on each node using BFS', function() {
-    var func = function(value, arrOut) {
-      arrOut = arrOut || [];
-      arrOut = arrOut.concat(value);
-      return arrOut;
+    var func = function(value) {
+      value += 2;
+      return value;
     };
     binarySearchTree.insert(2);
     binarySearchTree.insert(3);
@@ -71,6 +70,6 @@ describe('binarySearchTree', function() {
     //     [2  ,  7]
     //  [ , 3]   [6, ]
     //should log 5, 2, 7, 3, 6
-    expect(binarySearchTree.breadthFirstLog(func)).to.eql([5, 2, 7, 3, 6]);
+    expect(binarySearchTree.breadthFirstLog(func)).to.eql([7, 4, 9, 5, 8]);
   });
 });
