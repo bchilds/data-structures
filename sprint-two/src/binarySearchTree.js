@@ -1,38 +1,32 @@
-var BinarySearchTree = function(value) {
+var BinarySearchTree = function(value, height) {
 
   var bst = {};
   bst.value = value;
-  bst.left;
-  bst.right;
+  bst.left = null;
+  bst.right = null;
+  bst.height = height || 0;
   _.extend(bst, bstMethods);
-  bst.countNodes = 1;
-  bst.height = 1;
-  bst.headValue;
   return bst;
 };
 
 var bstMethods = {};
 //will need to access values recursively for correct placement/location
-bstMethods.insert = function(value, call) {
+bstMethods.insert = function(value) {
   //compare value to this BST value. 
-  call = call + 1 || 1;
   //if lower, 
   if (value < this.value) {
-    (this.left !== undefined) ? this.left.insert(value, call) : (this.left = new BinarySearchTree(value));
+    (this.left) ? this.left.insert(value) : (this.left = new BinarySearchTree(value, this.height + 1));
     //call insert on this.left if left exists
     //create a new BST with value and point this.left to it if this.left does not exist
   //if higher,
-    this.countNodes++;
   } else if (value > this.value) {
-    (this.right !== undefined) ? this.right.insert(value, call) : (this.right = new BinarySearchTree(value));
+    (this.right) ? this.right.insert(value) : (this.right = new BinarySearchTree(value, this.height + 1));
     //call insert on this.right if right exists
     //create a new BST with value and point this.right to it if this.right does not exist
-    this.countNodes++;
   } else if (value === this.value) {
     //if equal, do nothing
   }
   
-  if (call > this.height) { this.height = call; }
 };
 
 bstMethods.contains = function(value, out) {
@@ -97,6 +91,40 @@ bstMethods.breadthFirstLog = function(callback) {
 
   return arrayOut;
 };
+
+bstMethods.rotateTree = function() {
+  /*
+  notes:
+  important variables and conditions - 
+    n = # of nodes
+    minimumHeight = log2(n) 
+    rebalance if maxHeight > 2 * minimumHeight 
+  
+    balancing needs to be done at insertion by doing tree rotations
+    //rotate left, rotate right
+    the variable assigned to the original bst is root
+  */
+  
+  var n;
+};
+
+bstMethods.count = function() {
+  count = 0;
+  this.depthFirstLog(function() {
+    count++;
+  });
+  return count;
+};
+
+bstMethods.checkForBalance = function() {
+  var minHeight, maxHeight; 
+  maxHeight = 0;
+  this.depthFirstLog(function() {
+
+  });
+};
+
+
 
 
 /*

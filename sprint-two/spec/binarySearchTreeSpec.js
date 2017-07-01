@@ -43,7 +43,7 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(3);
     binarySearchTree.insert(7);
     binarySearchTree.insert(6);
-    expect(binarySearchTree.countNodes).to.equal(5);
+    expect(binarySearchTree.count()).to.equal(5);
   });
 
   xit('should be aware of BST height', function() {
