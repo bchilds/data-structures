@@ -76,4 +76,34 @@ describe('binarySearchTree', function() {
     //should log 5, 2, 7, 3, 6
     expect(binarySearchTree.breadthFirstLog(func)).to.eql([7, 4, 9, 5, 8]);
   });
+
+  it('should be aware of the need for rebalancing', function() {
+    binarySearchTree = BinarySearchTree(7);
+    binarySearchTree.insert(5);
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(12);
+    binarySearchTree.insert(18);
+    //         7
+    //     [5  ,  10]
+    //  [ ,  ]   [9, 12]
+    //         [ , ] [ , 18]
+    //                   [ , ]
+    expect(binarySearchTree.checkForBalance(binarySearchTree)).to.equal(true);
+  });
+
+  it('should balance entire tree correctly', function() {
+    binarySearchTree = BinarySearchTree(7);
+    binarySearchTree.insert(5);
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(12);
+    binarySearchTree.insert(18);
+    //         7
+    //     [5  ,  10]
+    //  [ ,  ]   [9, 12]
+    //         [ , ] [ , 18]
+    //                   [ , ]
+    expect(binarySearchTree.breadthFirstLog(function(value) { return value; })).to.equal([10, 7, 12, 5, 9, 18]);
+  });
 });
