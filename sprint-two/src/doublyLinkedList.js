@@ -38,8 +38,8 @@ var DoublyLinkedList = function() {
     
     var newNode = new Node(value);
 
-    if (list.tail === null || list.tail === undefined) {
-      if (list.head === null || list.head === undefined) {
+    if (!list.tail) {
+      if (!list.head) {
         list.head = newNode;
         list.tail = newNode;
       } else {
