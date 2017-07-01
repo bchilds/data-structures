@@ -70,4 +70,18 @@ describe('tree', function() {
     expect(removedChild.parent).to.equal(null);
     expect(tree.children[0].children.indexOf(removedChild)).to.equal(-1);
   });
+
+  //test for traverse
+  it('should run the callback on each node in tree', function() {
+    var double = function(value) {
+      return value = 2 * value;
+    };
+
+    tree.addChild(7);
+    tree.addChild(6);
+    tree.children[0].addChild(12);
+    //structure: undefined -> [7 -> 12, 6]  
+    tree.traverse(double);
+    expect(tree.children[0].value).to.equal(14);  
+  });
 });

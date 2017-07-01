@@ -54,6 +54,17 @@ treeMethods.removeFromParent = function() {
   }
 };
 
+treeMethods.traverse = function(cb) {
+  //takes in a callback function
+  //run cb on each value in this tree
+  //call traverse on each child of this tree
+  if (this.value) { 
+    this.value = cb(this.value);
+  }
+  for (var i = 0; i < this.children.length; i++) {
+    this.children[i].traverse(cb);
+  }
+};
 
 
 /*
