@@ -51,6 +51,26 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(3);
     binarySearchTree.insert(7);
     binarySearchTree.insert(6);
+    //         5
+    //     [2  ,  7]
+    //  [ , 3]   [6, ]
     expect(binarySearchTree.height).to.equal(3);
+  });
+
+  it('should perform a callback on each node using BFS', function() {
+    var func = function(value, arrOut) {
+      arrOut = arrOut || [];
+      arrOut = arrOut.concat(value);
+      return arrOut;
+    };
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(6);
+    //         5
+    //     [2  ,  7]
+    //  [ , 3]   [6, ]
+    //should log 5, 2, 7, 3, 6
+    expect(binarySearchTree.breadthFirstLog(func)).to.eql([5, 2, 7, 3, 6]);
   });
 });

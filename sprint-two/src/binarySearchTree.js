@@ -57,6 +57,16 @@ bstMethods.depthFirstLog = function(callback) {
   if (this.left) { this.left.depthFirstLog(callback); }
   if (this.right) { this.right.depthFirstLog(callback); }
 };
+
+bstMethods.breadthFirstLog = function(callback) {
+  //per research: must be implemented iteratively
+  //process starting node
+  //while there are children
+    //process starting children
+    //check for children's children
+    //repeat
+    
+};
 /*
  * Complexity: What is the time complexity of the above functions?
     - insert, contains are O(log n)
