@@ -46,15 +46,19 @@ describe('binarySearchTree', function() {
     expect(binarySearchTree.count()).to.equal(5);
   });
 
-  xit('should be aware of BST height', function() {
-    binarySearchTree.insert(2);
-    binarySearchTree.insert(3);
-    binarySearchTree.insert(7);
-    binarySearchTree.insert(6);
-    //         5
-    //     [2  ,  7]
-    //  [ , 3]   [6, ]
-    expect(binarySearchTree.height).to.equal(3);
+  it('should be aware of BST height', function() {
+    binarySearchTree = BinarySearchTree(7);
+    binarySearchTree.insert(5);
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(12);
+    binarySearchTree.insert(18);
+    //         7
+    //     [5  ,  10]
+    //  [ ,  ]   [9, 12]
+    //         [ , ] [ , 18]
+    //                   [ , ]
+    expect(binarySearchTree.getMaxHeight()).to.equal(3);
   });
 
   it('should perform a callback on each node using BFS', function() {

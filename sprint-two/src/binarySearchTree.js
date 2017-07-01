@@ -105,7 +105,6 @@ bstMethods.rotateTree = function() {
     the variable assigned to the original bst is root
   */
   
-  var n;
 };
 
 bstMethods.count = function() {
@@ -116,12 +115,20 @@ bstMethods.count = function() {
   return count;
 };
 
-bstMethods.checkForBalance = function() {
-  var minHeight, maxHeight; 
-  maxHeight = 0;
-  this.depthFirstLog(function() {
+bstMethods.getMaxHeight = function(maxHeight) {
+  var maxHeight = maxHeight || 0;
+  if (this.left) { 
+    maxHeight = this.left.getMaxHeight(maxHeight); 
+  }
+  if (this.right) { 
+    maxHeight = this.right.getMaxHeight(maxHeight); 
+  }
+  maxHeight = Math.max(maxHeight, this.height);
+  return maxHeight;
+};
 
-  });
+bstMethods.checkForBalance = function() {
+
 };
 
 
